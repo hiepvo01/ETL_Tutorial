@@ -82,11 +82,19 @@ class MainETL():
         self.drop_columns += dim_holiday.columns
         self.dimension_tables.append(dim_holiday)
         
+        # Get Travel Allowance amount
         travel_allowance_amount = self.fact_table['travel distance'] * self.fact_table['travelallowanceRate']
-        weather_allowance_amount = self.fact_table['weatehr allowance']
+        self.fact_table['travel allowance amount'] = travel_allowance_amount
         
-        # Get total amount paid
+        # Get Weather Allowance Amount
+        weather_allowance_amount = self.fact_table['weatehr allowance']
+        self.fact_table['weather allowance amount'] = weather_allowance_amount 
+        
+        # Get Hourly Work Payment
         work_payment = self.fact_table['work hours'] * self.fact_table['job hourly']
+        self.fact_table['work payment'] = work_payment
+        
+        # Get Total Payment
         self.fact_table['total pay this job'] = work_payment + travel_allowance_amount + weather_allowance_amount
         
         # Replace columns in fact table with respective foreign keys
@@ -103,6 +111,9 @@ class MainETL():
             trans = con.begin()
             self.fact_table['Total_Pay_Fact_id'] = range(1, len(self.fact_table) + 1)
             database.upload_dataframe_sqldatabase(f'Total_Pay_Fact', blob_data=self.fact_table)
+            
+            # self.fact_table['Total_Pay_Fact_id'] = range(len(self.fact_table) + 2, 2*(len(self.fact_table) + 1))
+            # database.append_dataframe_sqldatabase(f'Total_Pay_Fact', blob_data=self.fact_table)
             self.fact_table.to_csv('./data/Total_Pay_Fact.csv')
 
             for table in self.dimension_tables:
