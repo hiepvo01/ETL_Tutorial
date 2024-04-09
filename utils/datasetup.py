@@ -14,7 +14,6 @@ username = os.environ.get('USERNAME_AZURE')
 password = os.environ.get('PASSWORD')
 server = os.environ.get('SERVER')
 database = os.environ.get('DATABASE')
-connection_string = "Driver={ODBC Driver 18 for SQL Server};"+f"Server=tcp:{server},1433;Database={database};Uid={username};Pwd={password};Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;"
 account_storage = os.environ.get('ACCOUNT_STORAGE')
 
 # Using pyodbc
