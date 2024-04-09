@@ -106,7 +106,7 @@ class MainETL():
             self.fact_table.to_csv('./data/Total_Pay_Fact.csv')
 
             for table in self.dimension_tables:
-                con.execute(text(f'ALTER TABLE [dbo].[Total_Pay_Fact] WITH NOCHECK ADD CONSTRAINT [FK_{table.name}_dim] FOREIGN KEY ([{table.name}_id]) REFERENCES [dbo].[{table.name}_dim] ([{table.name}_id]);'))
+                con.execute(text(f'ALTER TABLE [dbo].[Total_Pay_Fact] WITH NOCHECK ADD CONSTRAINT [FK_{table.name}_dim] FOREIGN KEY ([{table.name}_id]) REFERENCES [dbo].[{table.name}_dim] ([{table.name}_id]) ON UPDATE CASCADE ON DELETE CASCADE;'))
             trans.commit()
             
         print(f'Step 3 finished')
@@ -117,7 +117,11 @@ class MainETL():
         # Step 2
         self.transform()
         # Step 3
-        self.load()
+        try:
+            database.delete_sqldatabase('Total_Pay_Fact')
+            self.load()
+        except:
+            self.load()
         
 def main():
     # create an instance of MainETL
