@@ -96,10 +96,12 @@ async function displayData(token) {
                     ]
                   },
                   options : {
+                    plugins: {
                     title: {
                         display: true,
                         text: 'Salary Paid by Category'
                     }
+                }
                   }
                 }
               );
@@ -108,18 +110,21 @@ async function displayData(token) {
                 document.getElementById('total-pay'),
                 {
                   type: 'pie',
+                  options : {
+                    plugins: {
+                    title: {
+                        display: true,
+                        text: 'Total Salary Received'
+                    }
+                }
+                  },
                   data: {
                     labels: total.map(row => row.Name),
                     datasets: [
                         {data: total.map(row => row['Total_Pay']),}
                     ]
                   },
-                  options : {
-                    title: {
-                        display: true,
-                        text: 'Total Salary Received'
-                    }
-                  }
+                  
                 }
               );
         } else if (dataUrl=="/data/employee") {
@@ -136,6 +141,14 @@ async function displayData(token) {
                 document.getElementById('separate-pay'),
                 {
                   type: 'bar',
+                  options : {
+                    plugins: {
+                    title: {
+                        display: true,
+                        text: 'Monthly Pay by Category'
+                    }
+                    }
+                  },
                   data: {
                     labels: indices.map(item => unorderedMonths[item.index]),
                     datasets: [
@@ -156,12 +169,6 @@ async function displayData(token) {
                         },
                     ]
                   },
-                  options : {
-                    title: {
-                        display: true,
-                        text: 'Monthly Pay by Category'
-                    }
-                  }
                 }
               );
               ;
@@ -177,11 +184,13 @@ async function displayData(token) {
                     ]
                   },
                   options : {
+                    plugins: {
                     title: {
                         display: true,
                         text: 'Hours Worked per Month'
                     }
-                  }
+                }
+                  },
                 }
               );
         }
