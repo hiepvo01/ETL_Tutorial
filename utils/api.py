@@ -8,6 +8,8 @@ from dotenv import load_dotenv
 import os
 from fastapi.middleware.cors import CORSMiddleware
 import json
+from fastapi import Response
+
 
 from utils.datasetup import AzureDB
 
@@ -21,18 +23,16 @@ ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
 app = FastAPI()
 
-origins = [
-    "http://127.0.0.1:5500",  # Adjust this to include the port and host of your frontend
-    "http://localhost:5500",
-    "https://etl-tutorial.vercel.app" # If you also access your frontend via localhost
-]
+# List of allowed origins
+origins = ["*"]
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,  # Allows specified origins to make requests
+    allow_origins=origins,
     allow_credentials=True,
-    allow_methods=["*"],    # Allows all methods
-    allow_headers=["*"],    # Allows all headers
+    allow_methods=["*"],
+    allow_headers=["*"],
+    expose_headers=["*"]
 )
 
 # Password context
@@ -99,8 +99,15 @@ def create_access_token(data: dict, expires_delta: timedelta = None):
     to_encode.update({"exp": expire})
     return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
 
+def add_cors_headers(response: Response):
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    response.headers['Access-Control-Allow-Methods'] = 'POST, GET, OPTIONS'
+    response.headers['Access-Control-Allow-Headers'] = 'Authorization, Content-Type'
+    return response
+
 @app.post("/token", response_model=Token)
-async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends()):
+async def login_for_access_token(response: Response, form_data: OAuth2PasswordRequestForm = Depends()):
+    response = add_cors_headers(response)   
     user = authenticate_user(form_data.username, form_data.password)
     if not user:
         raise HTTPException(
@@ -141,12 +148,18 @@ def check_user_role(role: str):
     return role_checker
 
 # API endpoints
+@app.get("/")
+async def hello():
+    return json.dumps({"data": "This is common data available to all authenticated users"})
+
 @app.get("/data/common")
-async def read_common_data(current_user: User = Depends(get_current_user)):
+async def read_common_data(response: Response, current_user: User = Depends(get_current_user)):
+    response = add_cors_headers(response) 
     return json.dumps({"data": "This is common data available to all authenticated users"})
 
 @app.get("/data/employee")
-async def read_employee_data(current_user: User = Depends(check_user_role("employee"))):
+async def read_employee_data(response: Response, current_user: User = Depends(check_user_role("employee"))):
+    response = add_cors_headers(response) 
     id = current_user.id
     total_pay1 = f'''
         SELECT date, SUM([work payment]) as Hourly_Pay, SUM([travel allowance amount]) as Travel_Pay, SUM([weather allowance amount]) as Weather_Pay, SUM([total pay this job]) as Total_Pay  
@@ -167,7 +180,8 @@ async def read_employee_data(current_user: User = Depends(check_user_role("emplo
     return json.dumps([database.get_sql_table(query) for query in queries])
 
 @app.get("/data/manager")
-async def read_manager_data(current_user: User = Depends(check_user_role("manager"))):
+async def read_manager_data(response: Response, current_user: User = Depends(check_user_role("manager"))):
+    response = add_cors_headers(response) 
     total_pay1 = '''
         SELECT Name, SUM([work payment]) as Hourly_Pay, SUM([travel allowance amount]) as Travel_Pay, SUM([weather allowance amount]) as Weather_Pay 
         FROM [dbo].[Total_Pay_Fact] 
