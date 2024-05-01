@@ -1,7 +1,7 @@
 async function login(event) {
     event.preventDefault();
     const formData = new FormData(document.getElementById('login-form'));
-    const response = await fetch('http://localhost:8000/token', {
+    const response = await fetch('https://etl-tutorial.onrender.com/token', {
         method: 'POST',
         body: formData
     });
@@ -64,7 +64,7 @@ async function displayData(token) {
             dataUrl = '/data/employee'; // Employee-specific data
         }
         
-        const datain = await fetchData(`http://localhost:8000${dataUrl}`, token);
+        const datain = await fetchData(`https://etl-tutorial.onrender.com${dataUrl}`, token);
         document.getElementById('message-display').innerText = "Logged in as " + user
 
         try {
