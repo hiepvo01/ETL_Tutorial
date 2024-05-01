@@ -23,7 +23,8 @@ app = FastAPI()
 
 origins = [
     "http://127.0.0.1:5500",  # Adjust this to include the port and host of your frontend
-    "http://localhost:5500",  # If you also access your frontend via localhost
+    "http://localhost:5500",
+    "https://etl-tutorial.vercel.app" # If you also access your frontend via localhost
 ]
 
 app.add_middleware(
