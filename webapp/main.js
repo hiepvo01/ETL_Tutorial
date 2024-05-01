@@ -95,6 +95,12 @@ async function displayData(token) {
                         },
                     ]
                   },
+                  options : {
+                    title: {
+                        display: true,
+                        text: 'Salary Paid by Category'
+                    }
+                  }
                 }
               );
               const total = JSON.parse(datain)[1]
@@ -108,6 +114,12 @@ async function displayData(token) {
                         {data: total.map(row => row['Total_Pay']),}
                     ]
                   },
+                  options : {
+                    title: {
+                        display: true,
+                        text: 'Total Salary Received'
+                    }
+                  }
                 }
               );
         } else if (dataUrl=="/data/employee") {
@@ -144,6 +156,12 @@ async function displayData(token) {
                         },
                     ]
                   },
+                  options : {
+                    title: {
+                        display: true,
+                        text: 'Monthly Pay by Category'
+                    }
+                  }
                 }
               );
               ;
@@ -158,6 +176,12 @@ async function displayData(token) {
                         {data: total.map(row => row['Total_Hours']),}
                     ]
                   },
+                  options : {
+                    title: {
+                        display: true,
+                        text: 'Hours Worked per Month'
+                    }
+                  }
                 }
               );
         }
