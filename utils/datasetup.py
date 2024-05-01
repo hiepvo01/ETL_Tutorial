@@ -5,6 +5,7 @@ import io
 from dotenv import load_dotenv
 from sqlalchemy import create_engine, text
 import pandas as pd
+import json
 
 load_dotenv()
 
@@ -118,3 +119,10 @@ class AzureDB():
             trans = con.begin()
             con.execute(text(f"DROP TABLE [dbo].[{table_name}]"))
             trans.commit()
+            
+    def get_sql_table(self, query):        
+        # Create connection and fetch data using Pandas        
+        df = pd.read_sql_query(query, engine)
+        # Convert DataFrame to the specified JSON format
+        result = df.to_dict(orient='records')
+        return result
