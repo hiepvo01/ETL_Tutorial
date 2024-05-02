@@ -11,5 +11,6 @@ azure-identity
 sqlalchemy
 python-dotenv
 python-jose[cryptography]
-passlib[bcrypt]
+passlib[argon2-cffi]
+argon2-cffi
 python-multipart
