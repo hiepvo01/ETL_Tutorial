@@ -2,6 +2,13 @@
 
 This project implements a simple Star Schema data warehouse design: Extracting data source from Azure blob storage, Transforming the data into Dimension and Fact tables, and finally uploading the schema to Azure SQL database for data warehouse management.
 
+## Full Stack Application
+
+The FastAPI backend is deployed on [Render](https://render.com) after being complied into a Docker image. The Frontend application is deployed on [Vercel](https://vercel.com) and can be accessed via [this url](https://etl-tutorial.vercel.app/index.html). The purpose of this application is to show different data privileges for different users: Data Manager and Employee where the manager has more data access while the employee can only access personal information.
+
+- The username and password for manager are: manager1 - managerpass
+- There are 3 employees base on the SQL data: ann, bob, and john with the same password 1234
+
 Please follow the [Tutorial Videos](https://www.youtube.com/watch?v=yIflPdERBvY&list=PL5WVbgdMDtS0rBQzayZnYlnIDHHyEAYxy) for project set up and implementation
 
 ### Official Azure Documentations:
