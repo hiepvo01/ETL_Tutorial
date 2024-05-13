@@ -1,7 +1,7 @@
 async function login(event) {
     event.preventDefault();
     const formData = new FormData(document.getElementById('login-form'));
-    const response = await fetch('https://test-etl-bi5vbfxerq-ts.a.run.app/token', {
+    const response = await fetch('https://test-etl-1-0-0.onrender.com/token', {
         method: 'POST',
         body: formData
     });
