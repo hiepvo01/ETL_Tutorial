@@ -65,7 +65,7 @@ async function displayData(token) {
         }
         
         // const datain = await fetchData(`https://etl-tutorial.onrender.com${dataUrl}`, token);
-        const datain = await fetchData(`https://test-etl-bi5vbfxerq-ts.a.run.app${dataUrl}`, token);
+        const datain = await fetchData(`https://test-etl-1-0-0.onrender.com${dataUrl}`, token);
         document.getElementById('message-display').innerText = "Logged in as " + user
 
         try {
