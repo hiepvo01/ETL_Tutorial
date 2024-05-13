@@ -159,6 +159,7 @@ async def read_common_data(response: Response, current_user: User = Depends(get_
 
 @app.get("/data/employee")
 async def read_employee_data(response: Response, current_user: User = Depends(check_user_role("employee"))):
+    
     response = add_cors_headers(response) 
     id = current_user.id
     total_pay1 = f'''
