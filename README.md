@@ -11,6 +11,20 @@ The FastAPI backend is deployed on [Render](https://render.com) after being comp
 
 Please follow the [Tutorial Videos](https://www.youtube.com/watch?v=yIflPdERBvY&list=PL5WVbgdMDtS0rBQzayZnYlnIDHHyEAYxy) for project set up and implementation
 
+To run the application locally, follow these steps:
+- Create .env file in the project directory and add the required environment variables
+- Create a virtual environment and install the required packages: pip install -r requirements.txt
+- Run the python backend: uvicorn utils.api:app
+- Open the index.html file in your browser and use the app
+
+## Required Environment varables:
+- ACCOUNT_STORAGE="YOUR STORAGE ACCOUNT"
+- USERNAME_AZURE="YOUR SQL USERNAME"
+- PASSWORD="YOUR SQL PASSWORD"
+- SERVER="YOUR AZURE SQL SERVER" * MAKE SURE TO HAVE database.windows.net
+- DATABASE="YOUR AZURE SQL DATABASE"
+- JWT_SECRET_KEY="ANY SECRET KEY FOR THE APP"
+
 ### Official Azure Documentations:
 
 [Azure Blob Storage](https://learn.microsoft.com/en-us/azure/storage/blobs/storage-quickstart-blobs-python?tabs=managed-identity%2Croles-azure-portal%2Csign-in-visual-studio-code&pivots=blob-storage-quickstart-scratch&fbclid=IwAR0_SXxKXmnzjU8YgZ7xHys0-F2yG-V4pXQk8us7wv1Z-gEys62RS6ODBRg#prerequisites)

@@ -1,7 +1,10 @@
+const api_url = "http://127.0.0.1:8000"
+// const api_url = "https://test-etl-1-0-0.onrender.com"
+
 async function login(event) {
     event.preventDefault();
     const formData = new FormData(document.getElementById('login-form'));
-    const response = await fetch('https://test-etl-1-0-0.onrender.com/token', {
+    const response = await fetch(api_url+'/token', {
         method: 'POST',
         body: formData
     });
@@ -64,8 +67,7 @@ async function displayData(token) {
             dataUrl = '/data/employee'; // Employee-specific data
         }
         
-        // const datain = await fetchData(`https://etl-tutorial.onrender.com${dataUrl}`, token);
-        const datain = await fetchData(`https://test-etl-1-0-0.onrender.com${dataUrl}`, token);
+        const datain = await fetchData(api_url+`${dataUrl}`, token);
         document.getElementById('message-display').innerText = "Logged in as " + user
 
         try {

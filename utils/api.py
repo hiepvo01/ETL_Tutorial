@@ -24,7 +24,7 @@ ACCESS_TOKEN_EXPIRE_MINUTES = 30
 app = FastAPI()
 
 # List of allowed origins
-origins = ["*"]
+origins = ["http://127.0.0.1:5500"]
 
 app.add_middleware(
     CORSMiddleware,
