@@ -24,7 +24,7 @@ ACCESS_TOKEN_EXPIRE_MINUTES = 30
 app = FastAPI()
 
 # List of allowed origins
-origins = ["http://127.0.0.1:5500"]
+origins = ["http://127.0.0.1:5500", "https://etl-tutorial.vercel.app"]
 
 app.add_middleware(
     CORSMiddleware,
@@ -150,7 +150,7 @@ def check_user_role(role: str):
 # API endpoints
 @app.get("/")
 async def hello():
-    return json.dumps({"data": "This is common data available to all authenticated users"})
+    return json.dumps({"data": "This is ETL implementation API"})
 
 @app.get("/data/common")
 async def read_common_data(response: Response, current_user: User = Depends(get_current_user)):
