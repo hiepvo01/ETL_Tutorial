@@ -10,8 +10,8 @@ from fastapi.middleware.cors import CORSMiddleware
 import json
 from fastapi import Response
 
-
 from utils.datasetup import AzureDB
+
 
 load_dotenv()
 
