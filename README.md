@@ -2,8 +2,6 @@
 
 This project implements a simple Star Schema data warehouse design: Extracting data source from Azure blob storage, Transforming the data into Dimension and Fact tables, and finally uploading the schema to Azure SQL database for data warehouse management.
 
-Deployed Web App: https://etl-tutorial-5osne8seb-hiepvo01s-projects.vercel.app
-
 ## Full Stack Application
 
 The FastAPI backend is deployed on [Render](https://render.com) after being complied into a Docker image. The Frontend application is deployed on [Vercel](https://vercel.com) and can be accessed via [this url](https://etl-tutorial.vercel.app/index.html). The purpose of this application is to show different data privileges for different users: Data Manager and Employee where the manager has more data access while the employee can only access personal information.
