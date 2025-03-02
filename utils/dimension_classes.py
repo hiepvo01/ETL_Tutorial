@@ -3,7 +3,7 @@ import pandas as pd
 
 blob_name="ETL_Example_Data.csv"
 database=AzureDB()
-database.access_container("test-container")
+database.access_container("example-data")
 df = database.access_blob_csv(blob_name=blob_name)
 
 class ModelAbstract():
