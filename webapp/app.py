@@ -6,6 +6,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 import jwt
 from datetime import datetime, timedelta
+import os
 
 # Configure the page
 st.set_page_config(
@@ -13,8 +14,9 @@ st.set_page_config(
     layout="wide"
 )
 
-# API URL - Replace with your API endpoint when deploying
-API_URL = "http://127.0.0.1:8000"
+# API URL - Get from environment variable or use default
+# This allows the URL to be configured differently in Docker
+API_URL = os.environ.get("API_URL", "http://127.0.0.1:8000")
 
 # Initialize session state variables if they don't exist
 if 'jwt_token' not in st.session_state:
@@ -33,7 +35,8 @@ def login(username, password):
         form_data = {'username': username, 'password': password}
         
         # Make the API request
-        response = requests.post(f"{API_URL}/token", data=form_data)
+        st.write(f"Attempting to connect to: {API_URL}/token")
+        response = requests.post(f"{API_URL}/token", data=form_data, timeout=10)
         
         if response.status_code == 200:
             token_data = response.json()
@@ -51,6 +54,9 @@ def login(username, password):
             
             return True
         else:
+            st.error(f"Login failed with status code: {response.status_code}")
+            if response.text:
+                st.error(f"Response: {response.text}")
             return False
     except Exception as e:
         st.error(f"Login failed: {str(e)}")
@@ -79,7 +85,7 @@ def fetch_data():
     # Fetch data from API
     try:
         headers = {'Authorization': f'Bearer {st.session_state.jwt_token}'}
-        response = requests.get(f"{API_URL}{data_url}", headers=headers)
+        response = requests.get(f"{API_URL}{data_url}", headers=headers, timeout=10)
         
         if response.status_code == 200:
             try:
@@ -118,7 +124,7 @@ def display_manager_data(data):
     """Display visualizations for manager role"""
     try:
         # Parse the JSON data
-        parsed_data = json.loads(data)
+        parsed_data = data if isinstance(data, list) else json.loads(data)
         
         # Extract the separate data components
         employee_data = parsed_data[0]
@@ -182,7 +188,7 @@ def display_employee_data(data):
     """Display visualizations for employee role"""
     try:
         # Parse the JSON data
-        parsed_data = json.loads(data)
+        parsed_data = data if isinstance(data, list) else json.loads(data)
         
         # Extract the separate data components
         monthly_data = parsed_data[0]

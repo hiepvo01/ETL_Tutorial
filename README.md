@@ -16,7 +16,7 @@ To run the application locally, follow these steps:
 - Create a virtual environment and install the required packages: pip install -r requirements.txt
 - Run the python backend: uvicorn utils.api:app
 - Change the const api_url variable in webapp/main.js to http://127.0.0.1:8000
-- Open the index.html file in your browser and use the app
+- Open the index.html file in your browser or run command streamlit run webapp/app.py and use the app 
 
 ## Required Environment varables:
 - ACCOUNT_STORAGE="YOUR STORAGE ACCOUNT"
