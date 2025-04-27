@@ -16,7 +16,8 @@ st.set_page_config(
 
 # API URL - Get from environment variable or use default
 # This allows the URL to be configured differently in Docker
-API_URL = os.environ.get("API_URL", "http://127.0.0.1:8000")
+# API_URL = os.environ.get("API_URL", "http://127.0.0.1:8000")
+API_URL = os.environ.get("API_URL", "https://etl-tutorial-api-latest.onrender.com")
 
 # Initialize session state variables if they don't exist
 if 'jwt_token' not in st.session_state:
