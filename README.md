@@ -4,7 +4,7 @@ This project implements a simple Star Schema data warehouse design: Extracting d
 
 ## Full Stack Application
 
-The FastAPI backend is deployed on [Render](https://render.com) after being complied into a Docker image. The Frontend application is deployed on [Streamlit Community Cloud](https://etl-tutorial.streamlit.app) (Python version) and [Github Pages]() (HTML version). The purpose of this application is to show different data privileges for different users: Data Manager and Employee where the manager has more data access while the employee can only access personal information.
+The FastAPI backend is deployed on [Render](https://render.com) after being complied into a Docker image. The Frontend application is deployed on [Streamlit Community Cloud](https://etl-tutorial.streamlit.app) (Python version) and [Vercel](https://etl-tutorial.vercel.app) (HTML version). The purpose of this application is to show different data privileges for different users: Data Manager and Employee where the manager has more data access while the employee can only access personal information.
 
 - The username and password for manager are: manager1 - managerpass
 - There are 3 employees base on the SQL data: ann, bob, and john with the same password 1234
